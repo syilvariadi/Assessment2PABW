@@ -63,6 +63,11 @@
                 var marketCap = $('#marketCapInput').val();
                 var volume = $('#volumeInput').val();
 
+                if (!name || !symbol || !price || !marketCap || !volume) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
                 var newData = {
                     name: name,
                     symbol: symbol,
