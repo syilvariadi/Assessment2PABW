@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Table dengan AJAX</title>
+    <title>Data Table dengan AJAX dan Form</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>
 <body>
+    <form id="dataForm">
+        <label for="nameInput">Name:</label>
+        <input type="text" id="nameInput" name="nameInput"><br>
+        
+        <label for="symbolInput">Symbol:</label>
+        <input type="text" id="symbolInput" name="symbolInput"><br>
+        
+        <label for="priceInput">Price:</label>
+        <input type="text" id="priceInput" name="priceInput"><br>
+        
+        <label for="marketCapInput">Market Cap:</label>
+        <input type="text" id="marketCapInput" name="marketCapInput"><br>
+        
+        <label for="volumeInput">Volume:</label>
+        <input type="text" id="volumeInput" name="volumeInput"><br>
+        
+        <button type="submit">Add Data</button>
+    </form>
+
     <table id="apiTable" class="display" style="width:100%">
         <thead>
             <tr>
@@ -33,6 +52,33 @@
                     { data: 'marketCapUsd' },
                     { data: 'volumeUsd24Hr' }
                 ]
+            });
+
+            $('#dataForm').submit(function(event) {
+                event.preventDefault();
+
+                var name = $('#nameInput').val();
+                var symbol = $('#symbolInput').val();
+                var price = $('#priceInput').val();
+                var marketCap = $('#marketCapInput').val();
+                var volume = $('#volumeInput').val();
+
+                var newData = {
+                    name: name,
+                    symbol: symbol,
+                    priceUsd: price,
+                    marketCapUsd: marketCap,
+                    volumeUsd24Hr: volume
+                };
+
+                dataTable.row.add(newData).draw();
+
+                // Reset form fields
+                $('#nameInput').val('');
+                $('#symbolInput').val('');
+                $('#priceInput').val('');
+                $('#marketCapInput').val('');
+                $('#volumeInput').val('');
             });
         });
     </script>
